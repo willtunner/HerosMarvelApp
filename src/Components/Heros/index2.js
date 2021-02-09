@@ -13,7 +13,7 @@ class Heros extends Component {
           alignItems: "center",
           borderBottomColor: "red",
           borderBottomWidth: 2,
-        }} onPress={() =>  this.props.navigation.navigate('HeroPage')}>
+        }} onPress={() => alert(this.props.data.name)}>
           <Image
             source={{
               uri: `${this.props.data.thumbnail.path}.${this.props.data.thumbnail.extension}`,

@@ -39,7 +39,8 @@ const styles = StyleSheet.create({
         width: 35
     },
     pagination: {
-        fontSize: 25
+        fontSize: 25,
+        color: '#d32024'
     },
     pagination2: {
         fontSize: 25,
