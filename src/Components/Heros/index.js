@@ -3,20 +3,34 @@ import { View, Text, Image, TouchableOpacity } from "react-native";
 
 class Heros extends Component {
   render() {
+
+    const id = this.props.data.id;
+    const nome = this.props.data.name;
+    const desc = this.props.data.description;
+    const img = `${this.props.data.thumbnail.path}.${this.props.data.thumbnail.extension}`
+    
+
     return (
       <View>
-        <TouchableOpacity  style={{
-          flex: 1,
-          flexDirection: "row",
-          padding: 10,
-          alignContent: "center",
-          alignItems: "center",
-          borderBottomColor: "red",
-          borderBottomWidth: 2,
-        }} onPress={() =>  this.props.navigation.navigate('HeroPage')}>
+        <TouchableOpacity
+          style={{
+            flex: 1,
+            flexDirection: "row",
+            padding: 10,
+            alignContent: "center",
+            alignItems: "center",
+            borderBottomColor: "red",
+            borderBottomWidth: 2,
+          }}
+          onPress={() =>
+            this.props.navigation.navigate("HeroPage", {
+              id: id, nome: nome, imagem: img, descricao: desc
+            })
+          }
+        >
           <Image
             source={{
-              uri: `${this.props.data.thumbnail.path}.${this.props.data.thumbnail.extension}`,
+              uri: `${img}`,
             }}
             style={{
               width: 60,

@@ -68,6 +68,20 @@ export default function Home({navigation}) {
             (heros) => `${heros.thumbnail.path}.${heros.thumbnail.extension}`
           )
         );
+
+        console.log(
+          "============================= COMICS ============================="
+        );
+        console.log(
+          heros.map(
+            (heros) => `${heros.comics.collectionURI}}`
+          )
+        );
+
+
+
+
+
       })
       .catch(function (error) {
         if (error) {
@@ -133,27 +147,23 @@ const Sublinhado = styled.Text`
   font-size: 16px;
   font-weight: bold;
   text-decoration: underline red;
-  font-family: "Roboto_900Black";
 `;
 const Negrito = styled.Text`
   color: #d32024;
   font-size: 16px;
   font-weight: bold;
-  font-family: "Roboto_900Black";
 `;
 
 const TextoSecundario = styled.Text`
   color: #d32024;
   font-size: 16px;
   font-weight: normal;
-  font-family: "Roboto_300Light";
 `;
 
 const Label = styled.Text`
   color: #d32024;
   font-size: 16px;
   font-weight: normal;
-  font-family: "Roboto_400Regular";
 `;
 
 const AreaTexto = styled.TextInput`
