@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, Text, Button, Image, FlatList, ScrollView } from "react-native";
 import axios from "axios";
 import Comics from "../../Components/Comics";
+import Histories from "../../Components/Histories";
 import { css } from "../HeroPage/css";
 
 export default function HeroPage({ route, navigation }) {
@@ -12,15 +13,20 @@ export default function HeroPage({ route, navigation }) {
 
   const [comic, setComic] = useState([]);
   const [serie, setSerie] = useState([]);
+  const [storie, setStories] = useState([]);
+  const [countH, setCountH] = useState(0);
+  const [countS, setCountS] = useState(0);
+  const [countC, setCountC] = useState(0);
 
   let comics;
   let series;
+  let stories;
 
   // Todo: Pega os Hqs de origem
   function getComicsHero() {
     const completeUrl = `https://gateway.marvel.com/v1/public/characters/${idC}/comics?ts=1612100588&apikey=441f8e1d35a71620f2cc514653ca8d66&hash=67b23bf97ed17c43aaec511386e91116`;
     return axios.get(`${completeUrl}`);
-    console.log(completeUrl);
+    // console.log(completeUrl);
   }
 
   // Todo: Pega as séries que participou
@@ -29,15 +35,24 @@ export default function HeroPage({ route, navigation }) {
     return axios.get(`${completeUrl}`);
   }
 
+  // Todo: Pega as stories que participou
+  function getStoriessHero() {
+    const completeUrl = `https://gateway.marvel.com/v1/public/characters/${idC}/stories?ts=1612100588&apikey=441f8e1d35a71620f2cc514653ca8d66&hash=67b23bf97ed17c43aaec511386e91116`;
+    return axios.get(`${completeUrl}`);
+  }
+
   useEffect(() => {
     // ? Popula variavel dos Hqs com array que retorna
     comics = getComicsHero();
     series = getSeriesHero();
+    stories = getStoriessHero();
 
     comics
       .then(function (resposta) {
         const dados = resposta.data.data.results;
+        const count = resposta.data.data.count;
         setComic(dados);
+        setCountC(countC);
 
         // ? Pegando dados dos Hqs
         const desc = dados.map((hqs) => `${hqs.description}`);
@@ -53,9 +68,11 @@ export default function HeroPage({ route, navigation }) {
             )}`
         );
 
+        /*
         console.log("################## teste comics ##################");
         const completeUrl = `https://gateway.marvel.com/v1/public/characters/${idC}/comics?ts=1612100588&apikey=441f8e1d35a71620f2cc514653ca8d66&hash=67b23bf97ed17c43aaec511386e91116`;
         console.log(completeUrl);
+        */
 
         // console.log(`id: ${id} - Titulo: ${title} - Descrição: ${desc} - thumbnail: ${thumbnail} - images ${images}`);
       })
@@ -66,13 +83,46 @@ export default function HeroPage({ route, navigation }) {
         }
       });
 
-      series.then(function (resposta) {
-        const dados = resposta.data.data.results;
-        setSerie(dados);
+    series.then(function (resposta) {
+      const dados = resposta.data.data.results;
+      const count = resposta.data.data.count;
+      setSerie(dados);
+      setCountS(count);
 
-        console.log('------------------------------------------- SERIES ------------------------------------------ ');
-        console.log(dados);
-      })
+      /*
+      console.log(
+        "------------------------------------------- SERIES ------------------------------------------ "
+      );
+      console.log(dados);
+      */
+    })
+    .catch(function (error) {
+      if (error) {
+        // ? Se tiver algum erro printa no catch
+        console.log(error);
+      }
+    });
+
+
+    stories.then(function (resposta) {
+      const dados = resposta.data.data.results;
+      const count = resposta.data.data.count;
+      setStories(dados);
+      setCountH(count)
+
+      console.log(
+        "------------------------------------------- Stories ------------------------------------------ "
+      );
+      console.log(count);
+    }).catch(function (error) {
+      if (error) {
+        // ? Se tiver algum erro printa no catch
+        console.log(error);
+      }
+    });
+
+
+
   }, []);
 
   return (
@@ -109,7 +159,7 @@ export default function HeroPage({ route, navigation }) {
           </View>
 
           <View style={css.ViewComic}>
-            <Text style={css.txtComic}>Comics</Text>
+            <Text style={css.txtComic}>{`Comics - ${countC}`}</Text>
           </View>
           {/* //Todo: Mostra os Hqs de Origem */}
           <FlatList
@@ -121,8 +171,9 @@ export default function HeroPage({ route, navigation }) {
             )}
           />
           <View style={css.ViewComic}>
-            <Text style={css.txtComic}>Series</Text>
+            <Text style={css.txtComic}>{`Series - ${countS}`}</Text>
           </View>
+          {/* //Todo: Mostra as Series que participou */}
           <FlatList
             horizontal
             data={serie}
@@ -132,6 +183,19 @@ export default function HeroPage({ route, navigation }) {
             )}
           />
 
+          <View style={css.ViewComic}>
+            <Text style={css.txtComic}>{`Histories - ${countH}`}</Text>
+          </View>
+          {/* //Todo: Mostra as historias que participou */}
+          <FlatList
+            horizontal
+            data={storie}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({ item }) => (
+              <Histories navigation={navigation} data={item} />
+            )}
+          />
+         
         </View>
         <View>
           <Button
