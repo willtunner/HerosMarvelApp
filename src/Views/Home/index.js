@@ -23,7 +23,7 @@ export default function Home({ navigation }) {
 
   // ? Navegações
   const [page, setPage] = useState(1);
-  const [offset, setOffset] = useState(1200);
+  const [offset, setOffset] = useState(0);
   const [peerPage, setPeerPage] = useState(4);
   const [total, setTotal] = useState(12);
   // Math.ceil arredonda para cima
@@ -38,7 +38,7 @@ export default function Home({ navigation }) {
     const orderBy = "orderBy=name";
     const limit = `limit=4`;
     const total = 100;
-    const masterKey = `ts=${timeStamp}&apikey=441f8e1d35a71620f2cc514653ca8d66&hash=67b23bf97ed17c43aaec511386e91116`;
+    const masterKey = `ts=1612100588&apikey=441f8e1d35a71620f2cc514653ca8d66&hash=67b23bf97ed17c43aaec511386e91116`;
     const completeUrl = `${BASE}${URL}?${masterKey}&${offset1}&${orderBy}&${limit}`;
 
     console.log(
