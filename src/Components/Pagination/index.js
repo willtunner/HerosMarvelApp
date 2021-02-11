@@ -12,12 +12,11 @@ class Pagination extends Component{
                     <Image source={ArrowL} style={styles.arrows}/>
                 </TouchableOpacity>
                 
-                <TouchableOpacity style={styles.rounded}><Text style={styles.pagination2}>1</Text></TouchableOpacity>    
-                <TouchableOpacity style={styles.rounded2}><Text style={styles.pagination}>2</Text></TouchableOpacity>    
-                <TouchableOpacity style={styles.rounded2}><Text style={styles.pagination}>3</Text></TouchableOpacity>    
-                <TouchableOpacity style={styles.rounded2}><Text style={styles.pagination}>4</Text></TouchableOpacity>    
-                <TouchableOpacity style={styles.rounded2}><Text style={styles.pagination}>5</Text></TouchableOpacity>    
-                <TouchableOpacity style={styles.rounded2}><Text style={styles.pagination}>6</Text></TouchableOpacity> 
+                <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
+                    <TouchableOpacity style={styles.rounded}><Text style={styles.pagination2}>1</Text></TouchableOpacity>    
+                    <TouchableOpacity style={styles.rounded2}><Text style={styles.pagination}>2</Text></TouchableOpacity>    
+                    <TouchableOpacity style={styles.rounded2}><Text style={styles.pagination}>3</Text></TouchableOpacity> 
+                </View> 
 
                 <TouchableOpacity>
                     <Image source={ArrowR} style={styles.arrows}/>
@@ -53,6 +52,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 50,
+        marginRight: 10,
     },
     rounded2: {
         borderWidth: 1,
@@ -62,6 +62,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 50,
+        marginRight: 10,
     }
 })
 
