@@ -8,7 +8,9 @@ class Comics extends Component {
     //  {!desc ? "Não existe descrição" : desc}
     return (
       <View>
-        <TouchableOpacity onPress={() => alert(id)}>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate("ComicPage", {
+              data: this.props.data,
+            })}>
           <Image
             source={{ uri: `${img}` }}
             style={{ height: 250, width: 160, marginRight: 10 }}

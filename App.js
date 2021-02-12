@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import Home from './src/Views/Home';
 import HeroPage from './src/Views/HeroPage';
+import ComicPage from './src/Views/ComicPage'
 
 
 export default function App() {
@@ -15,6 +16,7 @@ export default function App() {
       <Stack.Navigator>
         <Stack.Screen name="Home" options={{headerShown:false}} component={Home} />
         <Stack.Screen name="HeroPage" component={HeroPage} />
+        <Stack.Screen name="ComicPage" component={ComicPage} />
       </Stack.Navigator>
     </NavigationContainer>
   );

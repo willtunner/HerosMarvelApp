@@ -3,12 +3,10 @@ import { View, Text, Image, TouchableOpacity } from "react-native";
 
 class Heros extends Component {
   render() {
-
     const id = this.props.data.id;
     const nome = this.props.data.name;
     const desc = this.props.data.description;
-    const img = `${this.props.data.thumbnail.path}.${this.props.data.thumbnail.extension}`
-    
+    const img = `${this.props.data.thumbnail.path}.${this.props.data.thumbnail.extension}`;
 
     return (
       <View>
@@ -24,7 +22,10 @@ class Heros extends Component {
           }}
           onPress={() =>
             this.props.navigation.navigate("HeroPage", {
-              id: id, nome: nome, imagem: img, descricao: desc
+              id: id,
+              nome: nome,
+              imagem: img,
+              descricao: desc,
             })
           }
         >

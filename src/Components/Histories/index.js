@@ -8,9 +8,6 @@ class Histories extends Component {
     const thumb = this.props.data.thumbnail;
     // const img = `${this.props.data.thumbnail.path}.${this.props.data.thumbnail.extension}`;
 
-    console.log('teste thumb');
-    console.log(thumb);
-
     //  {!desc ? "Não existe descrição" : desc}
 
     return (

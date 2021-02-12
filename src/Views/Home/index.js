@@ -65,8 +65,6 @@ export default function Home({ navigation }) {
     goTo() {},
   };
 
-
-
   /**
    * page = offset
    * peerPage = limit
@@ -146,6 +144,7 @@ export default function Home({ navigation }) {
         <TextTiluto>Nome</TextTiluto>
       </TituloHero>
 
+      {/* //Todo: lista Heros */}
       <View>
         <FlatList
           data={hero}
@@ -156,7 +155,8 @@ export default function Home({ navigation }) {
         />
       </View>
       <View style={styles.redBorder}></View>
-      {/* <Pagination /> */}
+
+      {/* //Todo: <Pagination /> */}
       <View style={styles.ViewPage}>
         <TouchableOpacity>
           <Image source={ArrowL} style={styles.arrows} />

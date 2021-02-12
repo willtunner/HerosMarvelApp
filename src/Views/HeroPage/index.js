@@ -37,7 +37,14 @@ export default function HeroPage({ route, navigation }) {
 
   // Todo: Pega as stories que participou
   function getStoriessHero() {
-    const completeUrl = `https://gateway.marvel.com/v1/public/characters/${idC}/stories?ts=1612100588&apikey=441f8e1d35a71620f2cc514653ca8d66&hash=67b23bf97ed17c43aaec511386e91116`;
+    const completeUrl = `https://gateway.marvel.com/v1/public/characters/${idC}/stories?series=3374&ts=1612100588&apikey=441f8e1d35a71620f2cc514653ca8d66&hash=67b23bf97ed17c43aaec511386e91116`;
+    return axios.get(`${completeUrl}`);
+  }
+
+  // https://gateway.marvel.com/v1/public/stories/92078/comics?ts=1612100588&apikey=441f8e1d35a71620f2cc514653ca8d66&hash=67b23bf97ed17c43aaec511386e91116
+
+  function getImageStoriesHero() {
+    const completeUrl = `https://gateway.marvel.com/v1/public/stories/92078/comics?ts=1612100588&apikey=441f8e1d35a71620f2cc514653ca8d66&hash=67b23bf97ed17c43aaec511386e91116`;
     return axios.get(`${completeUrl}`);
   }
 
@@ -121,7 +128,8 @@ export default function HeroPage({ route, navigation }) {
       }
     });
 
-
+    console.log('---------------------------------------------- ID HISTORI ----------------------------------------------');
+    console.log(storie);
 
   }, []);
 
