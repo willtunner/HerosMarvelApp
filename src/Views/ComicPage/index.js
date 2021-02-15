@@ -39,7 +39,7 @@ export default function ComicPage({ route, navigation }) {
         <View style={styles.viewC}>
           <View>
             <TouchableOpacity>
-              <Image source={image} style={styles.capaHq} />
+              <Image source={{uri:image[0]}} style={styles.capaHq} />
             </TouchableOpacity>
           </View>
 
