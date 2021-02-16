@@ -46,7 +46,7 @@ export default function Home({ navigation }) {
     );
     console.log(completeUrl);
 
-    return axios.get(`${completeUrl}`);
+    return axios.get(completeUrl);
   }
 
   // ! Funções de controle da navegação
