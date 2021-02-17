@@ -15,6 +15,7 @@ import styled from "styled-components/native/";
 import Pagination from "../../Components/Pagination";
 import ArrowL from "../../../assets/ArrowL.png";
 import ArrowR from "../../../assets/ArrowR.png";
+import findButtom from "../../../assets/find_hero.png";
 
 export default function Home({ navigation }) {
   let dados;
@@ -23,7 +24,7 @@ export default function Home({ navigation }) {
 
   // ? Navegações
   const [page, setPage] = useState(1);
-  const [offset, setOffset] = useState(0);
+  const [offset, setOffset] = useState(401);
   const [peerPage, setPeerPage] = useState(4);
   const [total, setTotal] = useState(12);
   // Math.ceil arredonda para cima
@@ -52,15 +53,15 @@ export default function Home({ navigation }) {
   // ! Funções de controle da navegação
   const controls = {
     next() {
-      setPage(page +1);
+      setPage(page + 1);
       const lastPage = page > totalPage;
 
-      if(lastPage) {
-        setPage( page -1);
+      if (lastPage) {
+        setPage(page - 1);
       }
     },
     prev() {
-      setPage(page -1)
+      setPage(page - 1);
     },
     goTo() {},
   };
@@ -87,7 +88,7 @@ export default function Home({ navigation }) {
         console.log(
           "============================= HEROS ============================="
         );
-         console.log(hero);
+        console.log(hero);
         // ? Faz um map pegando apenas os nomes
         const names = hero.map((heros) => `${heros.id} - ${heros.name}`);
         // ? Mostra no console os nomes retornados
@@ -137,7 +138,12 @@ export default function Home({ navigation }) {
 
       <Pesquisar>
         <Label>Nome do Personagem</Label>
-        <AreaTexto placeholder="Digite o nome do seu heroi" />
+        <View style={styles.ViewFind}>
+          <AreaTexto placeholder="Digite o nome do seu heroi" />
+          <TouchableOpacity onPress={() => alert('clicou')}>
+            <Image source={findButtom} style={styles.ImgFind}  resizeMode="stretch"/>
+          </TouchableOpacity>
+        </View>
       </Pesquisar>
 
       <TituloHero>
@@ -199,6 +205,7 @@ const Pesquisar = styled.View`
   margin-top: 12px;
   justify-content: center;
   margin-left: 53px;
+  height: 60px;
 `;
 
 const Sublinhado = styled.Text`
@@ -233,6 +240,8 @@ const AreaTexto = styled.TextInput`
   width: 90%;
   border-radius: 5px;
   height: 40px;
+  flex: 1;
+  padding: 5px;
 `;
 const TituloHero = styled.TextInput`
   background-color: #ec1d24;
@@ -295,4 +304,18 @@ const styles = StyleSheet.create({
     backgroundColor: "#EC1D24",
     marginBottom: 20,
   },
+  ViewFind: {
+    flex: 1, 
+    flexDirection: 'row', 
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    margin: 10,
+  },
+  ImgFind: { 
+    height: 30, 
+    width: 30,
+    margin: 5,
+    padding: 10, 
+    right: 38
+  }
 });
