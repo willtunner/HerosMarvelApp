@@ -36,7 +36,7 @@ export default function Home({ navigation }) {
     const timeStamp = `1612100588`;
     const offset1 = `offset=${offset}`;
     const orderBy = "orderBy=name";
-    const limit = `limit=4`;
+    const limit = `limit=50`;
     const total = 100;
     const masterKey = `ts=1612100588&apikey=441f8e1d35a71620f2cc514653ca8d66&hash=67b23bf97ed17c43aaec511386e91116`;
     const completeUrl = `${BASE}${URL}?${masterKey}&${offset1}&${orderBy}&${limit}`;
@@ -87,7 +87,7 @@ export default function Home({ navigation }) {
         console.log(
           "============================= HEROS ============================="
         );
-        // console.log(heros);
+         console.log(hero);
         // ? Faz um map pegando apenas os nomes
         const names = hero.map((heros) => `${heros.id} - ${heros.name}`);
         // ? Mostra no console os nomes retornados

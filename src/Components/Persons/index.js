@@ -5,15 +5,31 @@ import axios from "axios";
 class Persons extends Component {
   render() {
     const id = this.props.data.id;
+    const name = this.props.data.name;
+    const desc = this.props.data.description;
+    
+    console.log("Nome");
+    console.log(name);
+
     const img = `${this.props.data.thumbnail.path}.${this.props.data.thumbnail.extension}`;
     return (
-      <View>
-       <Image
+      <TouchableOpacity onPress={() =>
+        this.props.navigation.navigate("HeroPage", {
+          id: id,
+          nome: name,
+          imagem: img,
+          descricao: desc,
+        })
+      }>
+        <View style={{backgroundColor: "#fff", alignItems: 'center', width: 180, height: 280, justifyContent: 'center'}}>
+          <Image
             source={{ uri: `${img}` }}
-            style={{ height: 250, width: 160, marginRight: 10 }}
+            style={{ height: 250, width: 160,marginTop: 5, borderRadius: 15 }}
             resizeMode="stretch"
           />
-      </View>
+          <Text>{name}</Text>
+        </View>
+      </TouchableOpacity>
     );
   }
 }

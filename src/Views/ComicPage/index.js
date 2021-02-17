@@ -144,22 +144,27 @@ export default function ComicPage({ route, navigation }) {
         </View>
 
         {/* //% Characters */}
-        <View
-          style={{
-            height: 200,
-            flex: 1,
-            backgroundColor: "#fff",
-            flexDirection: "column",
-          }}
-        >
+        <View>
+          <View style={{ height: 20, backgroundColor: "#335AF9", flex: 1 }}>
+            <Text
+              style={{
+                textAlign: "center",
+                fontSize: 16,
+                color: "#FFF",
+                fontWeight: "bold",
+              }}
+            >
+              Personagens
+            </Text>
+          </View>
           <FlatList
-          horizontal
-          data={persons}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => (
-            <Persons navigation={navigation} data={item} />
-          )}
-        />
+            horizontal
+            data={persons}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({ item }) => (
+              <Persons navigation={navigation} data={item} />
+            )}
+          />
           {/* <Persons navigation={navigation} data={data} /> */}
         </View>
       </ScrollView>
@@ -225,7 +230,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     padding: 5,
-    marginBottom: 15,
+    marginBottom: 10,
   },
   infoHq: {
     marginLeft: 10,

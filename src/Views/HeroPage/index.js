@@ -26,7 +26,9 @@ export default function HeroPage({ route, navigation }) {
   function getComicsHero() {
     const completeUrl = `https://gateway.marvel.com/v1/public/characters/${idC}/comics?ts=1612100588&apikey=441f8e1d35a71620f2cc514653ca8d66&hash=67b23bf97ed17c43aaec511386e91116`;
     return axios.get(`${completeUrl}`);
-    // console.log(completeUrl);
+    
+    console.log('$$$$$$$$$$$$$$$$$$$$$$ - id retorno comic hero - $$$$$$$$$$$$$$$$$$$$$$');
+    console.log(idC);
   }
 
   // Todo: Pega as séries que participou
@@ -132,6 +134,71 @@ export default function HeroPage({ route, navigation }) {
     console.log(storie);
 
   }, []);
+
+
+  // ? QUANDO MUDAR O ID DO HERO
+  useEffect(() => {
+    // ? Popula variavel dos Hqs com array que retorna
+    comics = getComicsHero();
+    series = getSeriesHero();
+    stories = getStoriessHero();
+
+    comics
+      .then(function (resposta) {
+        const dados = resposta.data.data.results;
+        const count = resposta.data.data.count;
+        setComic(dados);
+        setCountC(count);
+
+        // ? Pegando dados dos Hqs
+        const desc = dados.map((hqs) => `${hqs.description}`);
+        const id = dados.map((hqs) => `${hqs.id}`);
+        const title = dados.map((hqs) => `${hqs.title}`);
+        const thumbnail = dados.map(
+          (hqs) => `${hqs.thumbnail.path}.${hqs.thumbnail.extension}`
+        );
+        const images = dados.map(
+          (hqs) =>
+            `${hqs.images.map((path) => path.path)}.${hqs.images.map(
+              (ext) => ext.extension
+            )}`
+        );
+      })
+      .catch(function (error) {
+        if (error) {
+          // ? Se tiver algum erro printa no catch
+          console.log(error);
+        }
+      });
+
+    series.then(function (resposta) {
+      const dados = resposta.data.data.results;
+      const count = resposta.data.data.count;
+      setSerie(dados);
+      setCountS(count);
+    })
+    .catch(function (error) {
+      if (error) {
+        // ? Se tiver algum erro printa no catch
+        console.log(error);
+      }
+    });
+
+
+    stories.then(function (resposta) {
+      const dados = resposta.data.data.results;
+      const count = resposta.data.data.count;
+      setStories(dados);
+      setCountH(count)
+
+    }).catch(function (error) {
+      if (error) {
+        // ? Se tiver algum erro printa no catch
+        console.log(error);
+      }
+    });
+
+  }, [idC]);
 
   return (
     <ScrollView>
