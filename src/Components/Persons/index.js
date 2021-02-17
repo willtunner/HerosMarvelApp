@@ -7,9 +7,10 @@ class Persons extends Component {
     const id = this.props.data.id;
     const name = this.props.data.name;
     const desc = this.props.data.description;
+    const data = this.props.data;
     
-    console.log("Nome");
-    console.log(name);
+    // console.log("Data");
+    // console.log(data);
 
     const img = `${this.props.data.thumbnail.path}.${this.props.data.thumbnail.extension}`;
     return (

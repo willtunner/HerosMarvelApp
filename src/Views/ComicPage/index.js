@@ -63,7 +63,7 @@ export default function ComicPage({ route, navigation }) {
         console.log(
           "$$$$$$$$$$$$$$$$ RESPOTA DA URL COMPLETA $$$$$$$$$$$$$$$$$$$$"
         );
-        console.log(personagens);
+        console.log(data1);
 
         setPersons(personagens);
       })
@@ -89,7 +89,7 @@ export default function ComicPage({ route, navigation }) {
             {/* //? Infos do HQ */}
 
             {/* //% Titulo */}
-            <View style={{ flex: 1 }}>
+            <View style={{ flex: 1, width: 180 }}>
               <Text style={styles.tituloHq}>{title}</Text>
             </View>
 
@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
   viewDesc: {
     flex: 1,
     flexDirection: "row",
-    width: 190,
+    width: 180,
   },
   viewPrice: {
     flex: 1,

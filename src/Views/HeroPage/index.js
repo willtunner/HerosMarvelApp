@@ -61,7 +61,7 @@ export default function HeroPage({ route, navigation }) {
         const dados = resposta.data.data.results;
         const count = resposta.data.data.count;
         setComic(dados);
-        setCountC(countC);
+        setCountC(count);
 
         // ? Pegando dados dos Hqs
         const desc = dados.map((hqs) => `${hqs.description}`);
