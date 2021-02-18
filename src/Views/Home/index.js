@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import Heros from "../../Components/Heros";
 import styled from "styled-components/native/";
-import Pagination from "../../Components/Pagination";
+// import Pagination from "../../Components/Pagination";
 import ArrowL from "../../../assets/ArrowL.png";
 import ArrowR from "../../../assets/ArrowR.png";
 import findButtom from "../../../assets/find_hero.png";
@@ -21,10 +21,11 @@ export default function Home({ navigation }) {
   let dados;
 
   const [hero, setHero] = useState([]);
+  const [loadding, setLoading] = useState(true);
 
   // ? Navegações
   const [page, setPage] = useState(1);
-  const [offset, setOffset] = useState(401);
+  const [offset, setOffset] = useState(0);
   const [peerPage, setPeerPage] = useState(4);
   const [total, setTotal] = useState(12);
   // Math.ceil arredonda para cima
@@ -37,7 +38,7 @@ export default function Home({ navigation }) {
     const timeStamp = `1612100588`;
     const offset1 = `offset=${offset}`;
     const orderBy = "orderBy=name";
-    const limit = `limit=50`;
+    const limit = `limit=4`;
     const total = 100;
     const masterKey = `ts=1612100588&apikey=441f8e1d35a71620f2cc514653ca8d66&hash=67b23bf97ed17c43aaec511386e91116`;
     const completeUrl = `${BASE}${URL}?${masterKey}&${offset1}&${orderBy}&${limit}`;
@@ -75,19 +76,23 @@ export default function Home({ navigation }) {
   useEffect(() => {
     // ? Pega os dados retornados da função e armazena na variavel
     dados = getHeros();
-
+ 
     dados
       .then(function (resposta) {
         // ? pega a resposta e salva o array de todos os heros na variavel
         const heros = resposta.data.data.results;
+
         // ? popula o state hero
+
         setHero(heros);
+       
+        /*
         console.log("heros vindo do state..");
         // console.log(hero);
 
         console.log(
           "============================= HEROS ============================="
-        );
+        );  
         console.log(hero);
         // ? Faz um map pegando apenas os nomes
         const names = hero.map((heros) => `${heros.id} - ${heros.name}`);
@@ -115,7 +120,7 @@ export default function Home({ navigation }) {
           "============================= TOTALPAGES ============================="
         );
         console.log(`Total de pages: ${totalPage}`);
-        console.log(`Página atual: ${page}`);
+        console.log(`Página atual: ${page}`);*/
       })
 
       .catch(function (error) {
@@ -124,6 +129,11 @@ export default function Home({ navigation }) {
           console.log(error);
         }
       });
+
+      let timer = setInterval(() => {
+        setLoading(false);
+      },4000);
+    
   }, []);
 
   return (
@@ -136,12 +146,17 @@ export default function Home({ navigation }) {
         <TextoSecundario>TESTE FRONT-END</TextoSecundario>
       </Titulo>
 
+      {/* //todo: PESQUISAR */}
       <Pesquisar>
         <Label>Nome do Personagem</Label>
         <View style={styles.ViewFind}>
           <AreaTexto placeholder="Digite o nome do seu heroi" />
-          <TouchableOpacity onPress={() => alert('clicou')}>
-            <Image source={findButtom} style={styles.ImgFind}  resizeMode="stretch"/>
+          <TouchableOpacity onPress={() => alert("clicou")}>
+            <Image
+              source={findButtom}
+              style={styles.ImgFind}
+              resizeMode="stretch"
+            />
           </TouchableOpacity>
         </View>
       </Pesquisar>
@@ -154,9 +169,10 @@ export default function Home({ navigation }) {
       <View>
         <FlatList
           data={hero}
+          style={{ height: "63%" }}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
-            <Heros navigation={navigation} data={item} />
+            <Heros navigation={navigation} data={item} loading={loadding} />
           )}
         />
       </View>
@@ -305,17 +321,17 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   ViewFind: {
-    flex: 1, 
-    flexDirection: 'row', 
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     margin: 10,
   },
-  ImgFind: { 
-    height: 30, 
+  ImgFind: {
+    height: 30,
     width: 30,
     margin: 5,
-    padding: 10, 
-    right: 38
-  }
+    padding: 10,
+    right: 38,
+  },
 });
