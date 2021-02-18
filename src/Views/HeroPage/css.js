@@ -37,24 +37,21 @@ const css = StyleSheet.create({
     textAlign: "justify",
   },
   ViewInfo: {
-    marginBottom: 10
-  },
-  ViewId: {
-    backgroundColor: "#335AF9",
-    alignItems: "center",
-  },
-  txtId: {
-    color: "#fff",
-    fontSize: 20,
+    marginBottom: 10,
+    backgroundColor: "#FFF",
   },
   ViewComic: {
-    backgroundColor: '#7791FB',
-    alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: "center",
+  },
+  FlatComic: {
+    marginTop: 10,
+    marginBottom: 10,
   },
   txtComic: {
     fontSize: 20,
-    fontWeight: 'bold'
+    fontWeight: "bold",
+    marginLeft: 10,
+    marginTop:5,
   },
   contentContainer: {
     flex: 1,

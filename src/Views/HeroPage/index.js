@@ -27,8 +27,7 @@ export default function HeroPage({ route, navigation }) {
     const completeUrl = `https://gateway.marvel.com/v1/public/characters/${idC}/comics?ts=1612100588&apikey=441f8e1d35a71620f2cc514653ca8d66&hash=67b23bf97ed17c43aaec511386e91116`;
     return axios.get(`${completeUrl}`);
     
-    console.log('$$$$$$$$$$$$$$$$$$$$$$ - id retorno comic hero - $$$$$$$$$$$$$$$$$$$$$$');
-    console.log(idC);
+    
   }
 
   // Todo: Pega as séries que participou
@@ -55,6 +54,9 @@ export default function HeroPage({ route, navigation }) {
     comics = getComicsHero();
     series = getSeriesHero();
     stories = getStoriessHero();
+
+    console.log('$$$$$$$$$$$$$$$$$$$$$$ - serie comic hero - $$$$$$$$$$$$$$$$$$$$$$');
+    console.log(serie.item.id);
 
     comics
       .then(function (resposta) {
@@ -214,7 +216,7 @@ export default function HeroPage({ route, navigation }) {
 
         {/* //todo: Nome do hero */}
         <View style={css.ViewBorder}>
-          <Text style={css.txtName}>{nome}</Text>
+          <Text style={css.txtName}>{`#${idC} - ${nome}`}</Text>
         </View>
 
         {/* //todo: Descrição do hero */}
@@ -229,15 +231,13 @@ export default function HeroPage({ route, navigation }) {
 
         {/* //todo: Infos */}
         <View style={css.ViewInfo}>
-          <View style={css.ViewId}>
-            <Text style={css.txtId}>{`ID: #${idC}`}</Text>
-          </View>
 
           <View style={css.ViewComic}>
-            <Text style={css.txtComic}>{`Comics - ${countC}`}</Text>
+            <Text style={css.txtComic}>{`COMICS (${countC})`}</Text>
           </View>
           {/* //Todo: Mostra os Hqs de Origem */}
           <FlatList
+            style={css.FlatComic}
             horizontal
             data={comic}
             keyExtractor={(item) => item.id.toString()}
@@ -246,7 +246,7 @@ export default function HeroPage({ route, navigation }) {
             )}
           />
           <View style={css.ViewComic}>
-            <Text style={css.txtComic}>{`Series - ${countS}`}</Text>
+            <Text style={css.txtComic}>{`SERIES (${countS})`}</Text>
           </View>
           {/* //Todo: Mostra as Series que participou */}
           <FlatList
@@ -258,18 +258,6 @@ export default function HeroPage({ route, navigation }) {
             )}
           />
 
-          <View style={css.ViewComic}>
-            <Text style={css.txtComic}>{`Histories - ${countH}`}</Text>
-          </View>
-          {/* //Todo: Mostra as historias que participou */}
-          <FlatList
-            horizontal
-            data={storie}
-            keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item }) => (
-              <Histories navigation={navigation} data={item} />
-            )}
-          />
          
         </View>
         <View>
