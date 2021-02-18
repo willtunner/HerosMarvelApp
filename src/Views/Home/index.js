@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-// import {Container, Titulo, Pesquisar, Sublinhado, Negrito, TextoSecundario, Label, AreaTexto, TituloHero, TextTiluto} from './src/styles/css';
+// import {Container, Titulo, Pesquisar, Sublinhado, Negrito, TextoSecundario, Label, AreaTexto, TituloHero, TextTiluto} from '../../styles/css';
 import { StatusBar } from "expo-status-bar";
 import axios from "axios";
 import {
@@ -76,7 +76,7 @@ export default function Home({ navigation }) {
   useEffect(() => {
     // ? Pega os dados retornados da função e armazena na variavel
     dados = getHeros();
- 
+
     dados
       .then(function (resposta) {
         // ? pega a resposta e salva o array de todos os heros na variavel
@@ -85,7 +85,7 @@ export default function Home({ navigation }) {
         // ? popula o state hero
 
         setHero(heros);
-       
+
         /*
         console.log("heros vindo do state..");
         // console.log(hero);
@@ -130,10 +130,9 @@ export default function Home({ navigation }) {
         }
       });
 
-      let timer = setInterval(() => {
-        setLoading(false);
-      },4000);
-    
+    let timer = setInterval(() => {
+      setLoading(false);
+    }, 4000);
   }, []);
 
   return (
@@ -149,16 +148,12 @@ export default function Home({ navigation }) {
       {/* //todo: PESQUISAR */}
       <Pesquisar>
         <Label>Nome do Personagem</Label>
-        <View style={styles.ViewFind}>
+        <ViewFindHero>
           <AreaTexto placeholder="Digite o nome do seu heroi" />
-          <TouchableOpacity onPress={() => alert("clicou")}>
-            <Image
-              source={findButtom}
-              style={styles.ImgFind}
-              resizeMode="stretch"
-            />
-          </TouchableOpacity>
-        </View>
+          <ButtonFindHero onPress={() => alert("clicou")}>
+            <Avatar source={findButtom} />
+          </ButtonFindHero>
+        </ViewFindHero>
       </Pesquisar>
 
       <TituloHero>
@@ -166,7 +161,7 @@ export default function Home({ navigation }) {
       </TituloHero>
 
       {/* //Todo: lista Heros */}
-      <View>
+      <BodyHero>
         <FlatList
           data={hero}
           style={{ height: "63%" }}
@@ -175,7 +170,7 @@ export default function Home({ navigation }) {
             <Heros navigation={navigation} data={item} loading={loadding} />
           )}
         />
-      </View>
+      </BodyHero>
       <View style={styles.redBorder}></View>
 
       {/* //Todo: <Pagination /> */}
@@ -248,6 +243,14 @@ const Label = styled.Text`
   font-weight: normal;
 `;
 
+const ViewFindHero = styled.View`
+  flex: 1;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px;
+`;
+
 const AreaTexto = styled.TextInput`
   color: #000;
   font-size: 16px;
@@ -259,6 +262,17 @@ const AreaTexto = styled.TextInput`
   flex: 1;
   padding: 5px;
 `;
+
+const ButtonFindHero = styled.TouchableOpacity` `;
+
+const Avatar = styled.Image`
+height: 30px;
+width: 30px;
+margin: 5px;
+padding: 10px;
+right: 38px;
+`;
+
 const TituloHero = styled.TextInput`
   background-color: #ec1d24;
   height: 40px;
@@ -271,6 +285,8 @@ const TextTiluto = styled.Text`
   color: #fff;
   font-size: 20px;
 `;
+
+const BodyHero = styled.View` `;
 
 const styles = StyleSheet.create({
   arrows: {

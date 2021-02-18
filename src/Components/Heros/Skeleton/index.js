@@ -2,8 +2,7 @@ import React, { useEffect } from "react";
 import { View, Text, StyleSheet, Animated } from "react-native";
 
 export default function Skeleton({ visible, children }) {
-    console.log('##########   LOADING SKELETON  ##########')
-    console.log(visible);
+    
   //* Define o valor inicial animado
   const AnimatedValue = new Animated.Value(0);
 

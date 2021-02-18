@@ -3,7 +3,6 @@ import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 import Skeleton from "./Skeleton";
 
 class Heros extends Component {
-  
   render() {
     const id = this.props.data.id;
     const nome = this.props.data.name;
@@ -11,7 +10,6 @@ class Heros extends Component {
     const img = `${this.props.data.thumbnail.path}.${this.props.data.thumbnail.extension}`;
     const loading1 = this.props.loading;
 
-      
     return (
       <View>
         <Skeleton visible={loading1}>
