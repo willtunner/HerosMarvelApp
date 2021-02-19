@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 const css = StyleSheet.create({
   Container: {
-    backgroundColor: "#151F2D",
+    backgroundColor: "#fff",
   },
   Banner: {
     width: "100%",
@@ -26,7 +26,7 @@ const css = StyleSheet.create({
   Desc: {
     backgroundColor: "#1E2E44",
     width: "95%",
-    borderRadius: 15,
+    borderRadius: 5,
     padding: 10,
     justifyContent: "center",
     alignItems: "center",
@@ -37,7 +37,6 @@ const css = StyleSheet.create({
     textAlign: "justify",
   },
   ViewInfo: {
-    marginBottom: 10,
     backgroundColor: "#FFF",
   },
   ViewComic: {
@@ -57,6 +56,12 @@ const css = StyleSheet.create({
     flex: 1,
     flexGrow: 1,
   },
+  BackTouchableOpacity: {
+    backgroundColor: '#ec1d24',
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20,
+
+  }
 });
 
 export { css };

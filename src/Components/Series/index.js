@@ -1,8 +1,8 @@
 import React, { Component, useRef } from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
-import {css} from './css';
+import {css} from '../Comics/css';
 
-class Comics extends Component {
+class Series extends Component {
   render() {
     const id = this.props.data.id;
     const title = this.props.data.title;
@@ -11,7 +11,7 @@ class Comics extends Component {
     //  {!desc ? "Não existe descrição" : desc}
     return (
       <View style={{backgroundColor: '#FFF', padding: 5}}>
-        <TouchableOpacity onPress={() => this.props.navigation.navigate("ComicPage", {
+        <TouchableOpacity onPress={() => this.props.navigation.navigate("SeriePage", {
               data: this.props.data,
             })}>
           <Image
@@ -33,4 +33,4 @@ class Comics extends Component {
   }
 }
 
-export default Comics;
+export default Series;

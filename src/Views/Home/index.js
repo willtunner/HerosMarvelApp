@@ -25,7 +25,7 @@ export default function Home({ navigation }) {
 
   // ? Navegações
   const [page, setPage] = useState(1);
-  const [offset, setOffset] = useState(0);
+  const [offset, setOffset] = useState(555);
   const [peerPage, setPeerPage] = useState(4);
   const [total, setTotal] = useState(12);
   // Math.ceil arredonda para cima
