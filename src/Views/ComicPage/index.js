@@ -13,7 +13,7 @@ import {
 import Persons from "../../Components/Persons";
 
 export default function ComicPage({ route, navigation }) {
-  const data = route.params.data;
+  //const data = route.params.data;
   let dados;
 
   const [persons, setPersons] = useState([]);

@@ -1,9 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Button, Image, FlatList, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  Button,
+  Image,
+  FlatList,
+  ScrollView,
+  Touchable,
+} from "react-native";
 import axios from "axios";
 import Comics from "../../Components/Comics";
+import Series from '../../Components/Series';
 import Histories from "../../Components/Histories";
 import { css } from "../HeroPage/css";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default function HeroPage({ route, navigation }) {
   const idC = route.params.id;
@@ -17,6 +27,7 @@ export default function HeroPage({ route, navigation }) {
   const [countH, setCountH] = useState(0);
   const [countS, setCountS] = useState(0);
   const [countC, setCountC] = useState(0);
+  const [idSerie, setIdSerie] = useState(0);
 
   let comics;
   let series;
@@ -25,25 +36,28 @@ export default function HeroPage({ route, navigation }) {
   // Todo: Pega os Hqs de origem
   function getComicsHero() {
     const completeUrl = `https://gateway.marvel.com/v1/public/characters/${idC}/comics?ts=1612100588&apikey=441f8e1d35a71620f2cc514653ca8d66&hash=67b23bf97ed17c43aaec511386e91116`;
+    console.log('URL COMIC')
+    console.log(completeUrl);
     return axios.get(`${completeUrl}`);
-    
-    
   }
 
   // Todo: Pega as séries que participou
   function getSeriesHero() {
     const completeUrl = `https://gateway.marvel.com/v1/public/characters/${idC}/series?ts=1612100588&apikey=441f8e1d35a71620f2cc514653ca8d66&hash=67b23bf97ed17c43aaec511386e91116`;
+    console.log('URL Serie')
+    console.log(completeUrl);
     return axios.get(`${completeUrl}`);
   }
 
   // Todo: Pega as stories que participou
   function getStoriessHero() {
     const completeUrl = `https://gateway.marvel.com/v1/public/characters/${idC}/stories?series=3374&ts=1612100588&apikey=441f8e1d35a71620f2cc514653ca8d66&hash=67b23bf97ed17c43aaec511386e91116`;
+    console.log('URL STORIES')
+    console.log(completeUrl);
     return axios.get(`${completeUrl}`);
   }
 
   // https://gateway.marvel.com/v1/public/stories/92078/comics?ts=1612100588&apikey=441f8e1d35a71620f2cc514653ca8d66&hash=67b23bf97ed17c43aaec511386e91116
-
   function getImageStoriesHero() {
     const completeUrl = `https://gateway.marvel.com/v1/public/stories/92078/comics?ts=1612100588&apikey=441f8e1d35a71620f2cc514653ca8d66&hash=67b23bf97ed17c43aaec511386e91116`;
     return axios.get(`${completeUrl}`);
@@ -55,8 +69,10 @@ export default function HeroPage({ route, navigation }) {
     series = getSeriesHero();
     stories = getStoriessHero();
 
-    console.log('$$$$$$$$$$$$$$$$$$$$$$ - serie comic hero - $$$$$$$$$$$$$$$$$$$$$$');
-    console.log(serie.item.id);
+    console.log(
+      "$$$$$$$$$$$$$$$$$$$$$$ - serie comic hero - $$$$$$$$$$$$$$$$$$$$$$"
+    );
+    //console.log(serie);
 
     comics
       .then(function (resposta) {
@@ -78,14 +94,6 @@ export default function HeroPage({ route, navigation }) {
               (ext) => ext.extension
             )}`
         );
-
-        /*
-        console.log("################## teste comics ##################");
-        const completeUrl = `https://gateway.marvel.com/v1/public/characters/${idC}/comics?ts=1612100588&apikey=441f8e1d35a71620f2cc514653ca8d66&hash=67b23bf97ed17c43aaec511386e91116`;
-        console.log(completeUrl);
-        */
-
-        // console.log(`id: ${id} - Titulo: ${title} - Descrição: ${desc} - thumbnail: ${thumbnail} - images ${images}`);
       })
       .catch(function (error) {
         if (error) {
@@ -94,49 +102,46 @@ export default function HeroPage({ route, navigation }) {
         }
       });
 
-    series.then(function (resposta) {
-      const dados = resposta.data.data.results;
-      const count = resposta.data.data.count;
-      setSerie(dados);
-      setCountS(count);
+    series
+      .then(function (resposta) {
+        const dados = resposta.data.data.results;
+        const count = resposta.data.data.count;
+        const idSerie = resposta.data.data.id;
+        setSerie(dados);
+        setCountS(count);
+        setIdSerie(idSerie);
+      })
+      .catch(function (error) {
+        if (error) {
+          // ? Se tiver algum erro printa no catch
+          console.log(error);
+        }
+      });
 
-      /*
-      console.log(
-        "------------------------------------------- SERIES ------------------------------------------ "
-      );
-      console.log(dados);
-      */
-    })
-    .catch(function (error) {
-      if (error) {
-        // ? Se tiver algum erro printa no catch
-        console.log(error);
-      }
-    });
+    stories
+      .then(function (resposta) {
+        const dados = resposta.data.data.results;
+        const count = resposta.data.data.count;
+        setStories(dados);
+        setCountH(count);
 
+        console.log(
+          "------------------------------------------- Stories ------------------------------------------ "
+        );
+        //console.log(count);
+      })
+      .catch(function (error) {
+        if (error) {
+          // ? Se tiver algum erro printa no catch
+          console.log(error);
+        }
+      });
 
-    stories.then(function (resposta) {
-      const dados = resposta.data.data.results;
-      const count = resposta.data.data.count;
-      setStories(dados);
-      setCountH(count)
-
-      console.log(
-        "------------------------------------------- Stories ------------------------------------------ "
-      );
-      console.log(count);
-    }).catch(function (error) {
-      if (error) {
-        // ? Se tiver algum erro printa no catch
-        console.log(error);
-      }
-    });
-
-    console.log('---------------------------------------------- ID HISTORI ----------------------------------------------');
-    console.log(storie);
-
+    console.log(
+      "---------------------------------------------- ID HISTORI ----------------------------------------------"
+    );
+    // console.log(storie);
   }, []);
-
 
   // ? QUANDO MUDAR O ID DO HERO
   useEffect(() => {
@@ -173,33 +178,34 @@ export default function HeroPage({ route, navigation }) {
         }
       });
 
-    series.then(function (resposta) {
-      const dados = resposta.data.data.results;
-      const count = resposta.data.data.count;
-      setSerie(dados);
-      setCountS(count);
-    })
-    .catch(function (error) {
-      if (error) {
-        // ? Se tiver algum erro printa no catch
-        console.log(error);
-      }
-    });
+    series
+      .then(function (resposta) {
+        const dados = resposta.data.data.results;
+        const count = resposta.data.data.count;
+        // console.log(dados);
+        setSerie(dados);
+        setCountS(count);
+      })
+      .catch(function (error) {
+        if (error) {
+          // ? Se tiver algum erro printa no catch
+          console.log(error);
+        }
+      });
 
-
-    stories.then(function (resposta) {
-      const dados = resposta.data.data.results;
-      const count = resposta.data.data.count;
-      setStories(dados);
-      setCountH(count)
-
-    }).catch(function (error) {
-      if (error) {
-        // ? Se tiver algum erro printa no catch
-        console.log(error);
-      }
-    });
-
+    stories
+      .then(function (resposta) {
+        const dados = resposta.data.data.results;
+        const count = resposta.data.data.count;
+        setStories(dados);
+        setCountH(count);
+      })
+      .catch(function (error) {
+        if (error) {
+          // ? Se tiver algum erro printa no catch
+          console.log(error);
+        }
+      });
   }, [idC]);
 
   return (
@@ -231,7 +237,6 @@ export default function HeroPage({ route, navigation }) {
 
         {/* //todo: Infos */}
         <View style={css.ViewInfo}>
-
           <View style={css.ViewComic}>
             <Text style={css.txtComic}>{`COMICS (${countC})`}</Text>
           </View>
@@ -254,17 +259,23 @@ export default function HeroPage({ route, navigation }) {
             data={serie}
             keyExtractor={(item) => item.id.toString()}
             renderItem={({ item }) => (
-              <Comics navigation={navigation} data={item} />
+              <Series navigation={navigation} data={item} />
             )}
           />
-
-         
         </View>
-        <View>
-          <Button
-            title="Voltar"
-            onPress={() => navigation.navigate("Home")}
-          ></Button>
+        <View style={css.BackTouchableOpacity}>
+          <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+            <Text
+              style={{
+                textAlign: "center",
+                justifyContent: "center",
+                color: "#fff",
+                fontSize: 25,
+              }}
+            >
+              BACK TO HOME
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
     </ScrollView>
