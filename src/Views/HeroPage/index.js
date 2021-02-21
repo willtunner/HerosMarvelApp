@@ -210,79 +210,76 @@ export default function HeroPage({ route, navigation }) {
 
   return (
     <View>
-    <ScrollView>
-      <View style={css.Container}>
-        {/* //todo: imagem do hero */}
-        <View>
-          <Image
-            source={{ uri: `${imagem}` }}
-            style={css.Banner}
-            resizeMode="center"
-          />
-        </View>
+      <ScrollView>
+        <View style={css.Container}>
+          {/* //todo: imagem do hero */}
+          <View>
+            <Image
+              source={{ uri: `${imagem}` }}
+              style={css.Banner}
+              resizeMode="center"
+            />
+          </View>
 
-        {/* //todo: Nome do hero */}
-        <View style={css.ViewBorder}>
-          <Text style={css.txtName}>{`#${idC} - ${nome}`}</Text>
-        </View>
+          {/* //todo: Nome do hero */}
+          <View style={css.ViewBorder}>
+            <Text style={css.txtName}>{`#${idC} - ${nome}`}</Text>
+          </View>
 
-        {/* //todo: Descrição do hero */}
+          {/* //todo: Descrição do hero */}
 
-        <View style={css.ViewDesc}>
-          <View style={css.Desc}>
-            <Text style={css.TextDesc}>
-              {!desc ? "Não existe descrição" : desc}
-            </Text>
+          <View style={css.ViewDesc}>
+            <View style={css.Desc}>
+              <Text style={css.TextDesc}>
+                {!desc ? "Não existe descrição" : desc}
+              </Text>
+            </View>
+          </View>
+
+          {/* //todo: Infos */}
+          <View style={css.ViewInfo}>
+            <View style={css.ViewComic}>
+              <Text style={css.txtComic}>{`COMICS (${countC})`}</Text>
+            </View>
+            {/* //Todo: Mostra os Hqs de Origem */}
+            <FlatList
+              style={css.FlatComic}
+              horizontal
+              data={comic}
+              keyExtractor={(item) => item.id.toString()}
+              renderItem={({ item }) => (
+                <Comics navigation={navigation} data={item} />
+              )}
+            />
+            <View style={css.ViewComic}>
+              <Text style={css.txtComic}>{`SERIES (${countS})`}</Text>
+            </View>
+            {/* //Todo: Mostra as Series que participou */}
+            <FlatList
+              horizontal
+              data={serie}
+              keyExtractor={(item) => item.id.toString()}
+              renderItem={({ item }) => (
+                <Series navigation={navigation} data={item} />
+              )}
+            />
           </View>
         </View>
-
-        {/* //todo: Infos */}
-        <View style={css.ViewInfo}>
-          <View style={css.ViewComic}>
-            <Text style={css.txtComic}>{`COMICS (${countC})`}</Text>
-          </View>
-          {/* //Todo: Mostra os Hqs de Origem */}
-          <FlatList
-            style={css.FlatComic}
-            horizontal
-            data={comic}
-            keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item }) => (
-              <Comics navigation={navigation} data={item} />
-            )}
-          />
-          <View style={css.ViewComic}>
-            <Text style={css.txtComic}>{`SERIES (${countS})`}</Text>
-          </View>
-          {/* //Todo: Mostra as Series que participou */}
-          <FlatList
-            horizontal
-            data={serie}
-            keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item }) => (
-              <Series navigation={navigation} data={item} />
-            )}
-          />
-        </View>
-        
+      </ScrollView>
+      <View style={css.BackTouchableOpacity}>
+        <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+          <Text
+            style={{
+              textAlign: "center",
+              justifyContent: "center",
+              color: "#fff",
+              fontSize: 25,
+            }}
+          >
+            BACK TO HOME
+          </Text>
+        </TouchableOpacity>
       </View>
-    </ScrollView>
-   
-    <View style={css.BackTouchableOpacity}>
-          <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-            <Text
-              style={{
-                textAlign: "center",
-                justifyContent: "center",
-                color: "#fff",
-                fontSize: 25,
-              }}
-            >
-              BACK TO HOME
-            </Text>
-          </TouchableOpacity>
-        </View>
-
     </View>
   );
 }

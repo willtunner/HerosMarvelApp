@@ -63,7 +63,7 @@ export default function ComicPage({ route, navigation }) {
         console.log(
           "$$$$$$$$$$$$$$$$ RESPOTA DA URL COMPLETA $$$$$$$$$$$$$$$$$$$$"
         );
-        console.log(data1);
+        // console.log(data1);
 
         setPersons(personagens);
       })

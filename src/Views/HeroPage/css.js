@@ -43,29 +43,28 @@ const css = StyleSheet.create({
     justifyContent: "center",
   },
   FlatComic: {
-    marginTop: 10,
+    //marginTop: 10,
     marginBottom: 10,
   },
   txtComic: {
     fontSize: 20,
     fontWeight: "bold",
     marginLeft: 10,
-    marginTop:5,
+    marginTop: 5,
   },
   contentContainer: {
     flex: 1,
     flexGrow: 1,
   },
   BackTouchableOpacity: {
-    backgroundColor: '#ec1d24',
+    backgroundColor: "#ec1d24",
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
-    position: 'absolute',
+    position: "absolute",
     bottom: 0,
     flex: 1,
-    width: '100%'
-
-  }
+    width: "100%",
+  },
 });
 
 export { css };
