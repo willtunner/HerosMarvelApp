@@ -60,6 +60,10 @@ const css = StyleSheet.create({
     backgroundColor: '#ec1d24',
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
+    position: 'absolute',
+    bottom: 0,
+    flex: 1,
+    width: '100%'
 
   }
 });

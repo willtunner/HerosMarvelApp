@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import axios from "axios";
 import Comics from "../../Components/Comics";
-import Series from '../../Components/Series';
+import Series from "../../Components/Series";
 import Histories from "../../Components/Histories";
 import { css } from "../HeroPage/css";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -36,7 +36,7 @@ export default function HeroPage({ route, navigation }) {
   // Todo: Pega os Hqs de origem
   function getComicsHero() {
     const completeUrl = `https://gateway.marvel.com/v1/public/characters/${idC}/comics?ts=1612100588&apikey=441f8e1d35a71620f2cc514653ca8d66&hash=67b23bf97ed17c43aaec511386e91116`;
-    console.log('URL COMIC')
+    console.log("URL COMIC");
     console.log(completeUrl);
     return axios.get(`${completeUrl}`);
   }
@@ -44,7 +44,7 @@ export default function HeroPage({ route, navigation }) {
   // Todo: Pega as séries que participou
   function getSeriesHero() {
     const completeUrl = `https://gateway.marvel.com/v1/public/characters/${idC}/series?ts=1612100588&apikey=441f8e1d35a71620f2cc514653ca8d66&hash=67b23bf97ed17c43aaec511386e91116`;
-    console.log('URL Serie')
+    console.log("URL Serie");
     console.log(completeUrl);
     return axios.get(`${completeUrl}`);
   }
@@ -52,7 +52,7 @@ export default function HeroPage({ route, navigation }) {
   // Todo: Pega as stories que participou
   function getStoriessHero() {
     const completeUrl = `https://gateway.marvel.com/v1/public/characters/${idC}/stories?series=3374&ts=1612100588&apikey=441f8e1d35a71620f2cc514653ca8d66&hash=67b23bf97ed17c43aaec511386e91116`;
-    console.log('URL STORIES')
+    console.log("URL STORIES");
     console.log(completeUrl);
     return axios.get(`${completeUrl}`);
   }
@@ -209,6 +209,7 @@ export default function HeroPage({ route, navigation }) {
   }, [idC]);
 
   return (
+    <View>
     <ScrollView>
       <View style={css.Container}>
         {/* //todo: imagem do hero */}
@@ -263,7 +264,11 @@ export default function HeroPage({ route, navigation }) {
             )}
           />
         </View>
-        <View style={css.BackTouchableOpacity}>
+        
+      </View>
+    </ScrollView>
+   
+    <View style={css.BackTouchableOpacity}>
           <TouchableOpacity onPress={() => navigation.navigate("Home")}>
             <Text
               style={{
@@ -277,7 +282,7 @@ export default function HeroPage({ route, navigation }) {
             </Text>
           </TouchableOpacity>
         </View>
-      </View>
-    </ScrollView>
+
+    </View>
   );
 }
