@@ -9,14 +9,23 @@ import {
   StyleSheet,
   FlatList,
 } from "react-native";
+import { css } from "../HeroPage/css";
 
 import Persons from "../../Components/Persons";
+import Creators from '../../Components/Creators/';
 
 export default function ComicPage({ route, navigation }) {
-  //const data = route.params.data;
+  const data = route.params.data;
+  console.log("COMIC PAGE LOG ############");
+  console.log(data);
+
   let dados;
+  let creator;
 
   const [persons, setPersons] = useState([]);
+  const [creatorsPage, setCreators] = useState(0);
+  const [countCreators, setCountCreators] = useState(0);
+  const [countHeros, setCountHeros] = useState(0);
 
   //const img = `${this.props.data.thumbnail.path}.${this.props.data.thumbnail.extension}`;
 
@@ -30,40 +39,42 @@ export default function ComicPage({ route, navigation }) {
     description,
     title,
     characters,
+    creators,
   } = route.params.data;
 
+  const criadores = creators.collectionURI;
   const collectionURI = characters.collectionURI;
   const image = images.map((result) => result.path + "." + result.extension);
   const price = prices.map((result) => result.price);
   const typePrice = prices.map((result) => result.type);
   const Characters = characters.items.map((results) => results.name);
   const CharactersURI = characters.items.map((results) => results.resourceURI);
-  const completeURL = `${collectionURI}?ts=1612100588&apikey=441f8e1d35a71620f2cc514653ca8d66&hash=67b23bf97ed17c43aaec511386e91116`;
-
-  console.log(
-    "============================= DEBUG - TESTE ============================="
-  );
-  // console.log(image[2]);
-  console.log(completeURL);
-  console.log("$$$$$$$$$$$$$$$$$$$$$$$ DATA $$$$$$$$$$$$$$$$$$$$$$$$$");
-  //console.log(data);
+  const keyCode =
+    "?ts=1612100588&limit=100&apikey=441f8e1d35a71620f2cc514653ca8d66&hash=67b23bf97ed17c43aaec511386e91116";
+  const completeURL = collectionURI+keyCode;
 
   // ? Função para pegar a url dos personagens
   function getHeros() {
     return axios.get(completeURL);
   }
 
+  function getCreatorsSerie() {
+    const completeUrl = criadores + keyCode;
+    console.log("URL Criadores");
+    console.log(completeUrl);
+    return axios.get(`${completeUrl}`);
+  }
+
   useEffect(() => {
     dados = getHeros();
+    creator = getCreatorsSerie();
 
     dados
       .then(function (resposta) {
         const data1 = resposta.data.data.results;
+        const count = resposta.data.data.total;
+        setCountHeros(count);
         const personagens = data1.map((results) => results);
-        console.log(
-          "$$$$$$$$$$$$$$$$ RESPOTA DA URL COMPLETA $$$$$$$$$$$$$$$$$$$$"
-        );
-        // console.log(data1);
 
         setPersons(personagens);
       })
@@ -73,11 +84,28 @@ export default function ComicPage({ route, navigation }) {
           console.log(error);
         }
       });
+
+      creator
+      .then(function (resposta) {
+        const dados = resposta.data.data.results;
+        const count = resposta.data.data.total;
+
+        setCreators(dados);
+        setCountCreators(count);
+
+      })
+      .catch(function (error) {
+        if (error) {
+          // ? Se tiver algum erro printa no catch
+          console.log(error);
+        }
+      });
+      
   }, []);
 
   return (
-    <View style={styles.container}>
-      <ScrollView style={styles.scrollVI}>
+    <View>
+      <ScrollView>
         <View style={styles.viewC}>
           <View>
             <TouchableOpacity>
@@ -145,17 +173,8 @@ export default function ComicPage({ route, navigation }) {
 
         {/* //% Characters */}
         <View>
-          <View style={{ height: 20, backgroundColor: "#335AF9", flex: 1 }}>
-            <Text
-              style={{
-                textAlign: "center",
-                fontSize: 16,
-                color: "#FFF",
-                fontWeight: "bold",
-              }}
-            >
-              Personagens
-            </Text>
+          <View>
+            <Text style={styles.titText} >{`PERSONAGENS (${countHeros})`} </Text>
           </View>
           <FlatList
             horizontal
@@ -165,9 +184,38 @@ export default function ComicPage({ route, navigation }) {
               <Persons navigation={navigation} data={item} />
             )}
           />
-          {/* <Persons navigation={navigation} data={data} /> */}
         </View>
+
+        {/* //% Creators  */}
+        <View style={{ marginTop: 25 }}>
+          <Text style={styles.titText}>{`CRIADORES (${countCreators})`}</Text>
+          <FlatList
+            style={{marginBottom: 10,}}
+            horizontal
+            data={creatorsPage}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({ item }) => (
+              <Creators navigation={navigation} data={item} />
+            )}
+          />
+        </View>
+
       </ScrollView>
+
+      <View style={css.BackTouchableOpacity}>
+        <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+          <Text
+            style={{
+              textAlign: "center",
+              justifyContent: "center",
+              color: "#fff",
+              fontSize: 25,
+            }}
+          >
+            BACK TO HOME
+          </Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -231,8 +279,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     padding: 5,
     marginBottom: 10,
+    backgroundColor: "#282A36",
   },
   infoHq: {
     marginLeft: 10,
   },
+  titText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginLeft: 10,
+    marginTop: 5,
+  }
 });

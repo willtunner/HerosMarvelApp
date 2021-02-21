@@ -43,7 +43,6 @@ const css = StyleSheet.create({
     justifyContent: "center",
   },
   FlatComic: {
-    //marginTop: 10,
     marginBottom: 10,
   },
   txtComic: {

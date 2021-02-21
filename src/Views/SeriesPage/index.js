@@ -14,10 +14,12 @@ import { css } from "../HeroPage/css";
 
 import Comics from "../../Components/Comics";
 import Persons from "../../Components/Persons";
-import Creators from "../../Components/Creators"
+import Creators from "../../Components/Creators";
 
 export default function ComicPage({ route, navigation }) {
-  //const data = route.params.data;
+  const data = route.params.data;
+  console.log(data);
+
   let dados;
   let comics;
   let creator;
@@ -35,7 +37,7 @@ export default function ComicPage({ route, navigation }) {
   } = route.params.data;
   const collectionURI = characters.collectionURI;
   const keyCode =
-    "?ts=1612100588&apikey=441f8e1d35a71620f2cc514653ca8d66&hash=67b23bf97ed17c43aaec511386e91116";
+    "?ts=1612100588&limit=100&apikey=441f8e1d35a71620f2cc514653ca8d66&hash=67b23bf97ed17c43aaec511386e91116";
 
   const image = `${thumbnail.path}.${thumbnail.extension}`;
   const Characters = characters.items.map((results) => results.name);
@@ -147,7 +149,7 @@ export default function ComicPage({ route, navigation }) {
       <View
         style={{
           marginTop: 60,
-          backgroundColor: "#ccc",
+          backgroundColor: "#FFF",
           width: "95%",
           borderRadius: 5,
         }}
@@ -181,7 +183,7 @@ export default function ComicPage({ route, navigation }) {
                 borderRadius: 20,
               }}
             >
-              <View style={{ height: 1800 }}>
+              <View style={{ height: 1400 }}>
                 {/* // % Ano inicio/fim */}
                 <View
                   style={{
@@ -198,7 +200,9 @@ export default function ComicPage({ route, navigation }) {
 
                 {/* //% Personagens */}
                 <View style={{ justifyContent: "flex-start", marginTop: 20 }}>
-                  <Text style={styles.textTit}>{`PERSONAGENS (${characters.available})`}</Text>
+                  <Text
+                    style={styles.textTit}
+                  >{`PERSONAGENS (${characters.available})`}</Text>
                   <FlatList
                     horizontal
                     data={persons}
@@ -211,9 +215,7 @@ export default function ComicPage({ route, navigation }) {
 
                 {/* //% Comics  */}
                 <View style={{ marginTop: 25 }}>
-                  <Text
-                    style={styles.textTit}
-                  >{`COMICS (${countC})`}</Text>
+                  <Text style={styles.textTit}>{`COMICS (${countC})`}</Text>
                   <FlatList
                     style={[css.FlatComic]}
                     horizontal
@@ -226,9 +228,11 @@ export default function ComicPage({ route, navigation }) {
                 </View>
 
                 {/* //% Creators  */}
-                  <View style={{marginTop: 25}}>
-                    <Text style={styles.textTit}>{`CRIADORES (${countCreators})`}</Text>
-                    <FlatList
+                <View style={{ marginTop: 25 }}>
+                  <Text
+                    style={styles.textTit}
+                  >{`CRIADORES (${countCreators})`}</Text>
+                  <FlatList
                     style={[css.FlatComic]}
                     horizontal
                     data={creatorsPage}
@@ -237,7 +241,10 @@ export default function ComicPage({ route, navigation }) {
                       <Creators navigation={navigation} data={item} />
                     )}
                   />
-                  </View>
+                </View>
+
+                {/* //% */}
+
               </View>
             </View>
           </View>
@@ -257,6 +264,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginLeft: 10,
     marginTop: 5,
-    marginBottom: 10
-  }
+    marginBottom: 10,
+  },
 });

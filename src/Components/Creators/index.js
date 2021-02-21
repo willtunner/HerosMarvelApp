@@ -8,8 +8,8 @@ class Creators extends Component {
     const img = `${this.props.data.thumbnail.path}.${this.props.data.thumbnail.extension}`;
     const name = this.props.data.fullName;
 
-    console.log("Page creators");
-    console.log(img);
+    //console.log("Page creators");
+    // console.log(img);
     return (
       
         <TouchableOpacity
