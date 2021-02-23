@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-// import {Container, Titulo, Pesquisar, Sublinhado, Negrito, TextoSecundario, Label, AreaTexto, TituloHero, TextTiluto} from '../../styles/css';
 import { StatusBar } from "expo-status-bar";
 import axios from "axios";
 import {
@@ -12,12 +11,17 @@ import {
 } from "react-native";
 import Heros from "../../Components/Heros";
 import styled from "styled-components/native/";
-// import Pagination from "../../Components/Pagination";
 import ArrowL from "../../../assets/ArrowL.png";
 import ArrowR from "../../../assets/ArrowR.png";
 import findButtom from "../../../assets/find_hero.png";
 
+
+
 export default function Home({ navigation }) {
+  console.log(
+    "------------------------------------------- Home ------------------------------------------ "
+  );
+  
   let dados;
 
   const [hero, setHero] = useState([]);
@@ -25,11 +29,23 @@ export default function Home({ navigation }) {
 
   // ? Navegações
   const [page, setPage] = useState(1);
-  const [offset, setOffset] = useState(573);
+  const [offset, setOffset] = useState(0);
   const [peerPage, setPeerPage] = useState(4);
   const [total, setTotal] = useState(12);
   // Math.ceil arredonda para cima
   const [totalPage, setTotalPage] = useState(Math.ceil(total / peerPage));
+  const [nameHero, setNameHero] = useState();
+
+  function findHeroName() {
+    const masterKey = `ts=1612100588&apikey=441f8e1d35a71620f2cc514653ca8d66&hash=67b23bf97ed17c43aaec511386e91116`;
+    const BASE = "https://gateway.marvel.com/v1/public/characters?";
+    const nameHero = `name=iron man&`;
+    const completeUrl = `${BASE}?${nameHero}${masterKey}`;
+
+    const hero = axios.get(completeUrl);
+    setHero(hero);
+
+  }
 
   function getHeros() {
     const BASE = "https://gateway.marvel.com/";
@@ -43,10 +59,10 @@ export default function Home({ navigation }) {
     const masterKey = `ts=1612100588&apikey=441f8e1d35a71620f2cc514653ca8d66&hash=67b23bf97ed17c43aaec511386e91116`;
     const completeUrl = `${BASE}${URL}?${masterKey}&${offset1}&${orderBy}&${limit}`;
 
-    console.log(
-      "============================= URL COMPLETA ============================="
-    );
-    console.log(completeUrl);
+    // console.log(
+    //   "============================= URL COMPLETA ============================="
+    // );
+    // console.log(completeUrl);
 
     return axios.get(completeUrl);
   }
@@ -83,46 +99,8 @@ export default function Home({ navigation }) {
         const heros = resposta.data.data.results;
 
         // ? popula o state hero
-
         setHero(heros);
-
-        /*
-        console.log("heros vindo do state..");
-        // console.log(hero);
-
-        console.log(
-          "============================= HEROS ============================="
-        );  
-        console.log(hero);
-        // ? Faz um map pegando apenas os nomes
-        const names = hero.map((heros) => `${heros.id} - ${heros.name}`);
-        // ? Mostra no console os nomes retornados
-        console.log(
-          "============================= NAMES ============================="
-        );
-        console.log(names);
-
-        console.log(
-          "============================= IMAGENS ============================="
-        );
-        console.log(
-          heros.map(
-            (heros) => `${heros.thumbnail.path}.${heros.thumbnail.extension}`
-          )
-        );
-
-        console.log(
-          "============================= COMICS ============================="
-        );
-        console.log(heros.map((heros) => `${heros.comics.collectionURI}}`));
-
-        console.log(
-          "============================= TOTALPAGES ============================="
-        );
-        console.log(`Total de pages: ${totalPage}`);
-        console.log(`Página atual: ${page}`);*/
       })
-
       .catch(function (error) {
         if (error) {
           // ? Se tiver algum erro printa no catch

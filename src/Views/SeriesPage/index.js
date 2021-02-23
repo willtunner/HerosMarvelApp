@@ -16,9 +16,15 @@ import Comics from "../../Components/Comics";
 import Persons from "../../Components/Persons";
 import Creators from "../../Components/Creators";
 
+
+
 export default function ComicPage({ route, navigation }) {
+  console.log(
+    "------------------------------------------- Series Page ------------------------------------------ "
+  );
+  
   const data = route.params.data;
-  console.log(data);
+  //console.log(data);
 
   let dados;
   let comics;
@@ -45,7 +51,7 @@ export default function ComicPage({ route, navigation }) {
 
   const completeURL = `${collectionURI + keyCode}`;
 
-  console.log("SeriesPage - Dados");
+  //console.log("SeriesPage - Dados");
   //console.log(criadores);
 
   const [persons, setPersons] = useState([]);
@@ -62,15 +68,15 @@ export default function ComicPage({ route, navigation }) {
   // ? Pega os Hqs de origem
   function getComicsSerie() {
     const completeUrl = `http://gateway.marvel.com/v1/public/series/${id}/comics${keyCode}`;
-    console.log("URL Serie");
-    //console.log(completeUrl);
+    // console.log("URL Serie");
+    // console.log(completeUrl);
     return axios.get(`${completeUrl}`);
   }
 
   function getCreatorsSerie() {
     const completeUrl = criadores + keyCode;
-    console.log("URL Criadores");
-    console.log(completeUrl);
+    // console.log("URL Criadores");
+    // console.log(completeUrl);
     return axios.get(`${completeUrl}`);
   }
 
@@ -83,9 +89,9 @@ export default function ComicPage({ route, navigation }) {
       .then(function (resposta) {
         const data1 = resposta.data.data.results;
         const personagens = data1.map((results) => results);
-        console.log(
-          "$$$$$$$$$$$$$$$$ RESPOTA DA URL COMPLETA $$$$$$$$$$$$$$$$$$$$"
-        );
+        // console.log(
+        //   "$$$$$$$$$$$$$$$$ RESPOTA DA URL COMPLETA $$$$$$$$$$$$$$$$$$$$"
+        // );
         //console.log(data1);
 
         setPersons(personagens);
@@ -133,8 +139,8 @@ export default function ComicPage({ route, navigation }) {
         setCreators(dados);
         setCountCreators(count);
 
-        console.log("Retorno criadores");
-        //console.log(count);
+        // console.log("Retorno criadores");
+        // console.log(count);
       })
       .catch(function (error) {
         if (error) {

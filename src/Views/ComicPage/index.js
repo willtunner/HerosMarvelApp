@@ -14,10 +14,15 @@ import { css } from "../HeroPage/css";
 import Persons from "../../Components/Persons";
 import Creators from '../../Components/Creators/';
 
+
+
 export default function ComicPage({ route, navigation }) {
+  console.log(
+    "------------------------------------------- Comic Page ------------------------------------------ "
+  );
   const data = route.params.data;
-  console.log("COMIC PAGE LOG ############");
-  console.log(data);
+  // console.log("COMIC PAGE LOG ############");
+  // console.log(data);
 
   let dados;
   let creator;
@@ -60,8 +65,8 @@ export default function ComicPage({ route, navigation }) {
 
   function getCreatorsSerie() {
     const completeUrl = criadores + keyCode;
-    console.log("URL Criadores");
-    console.log(completeUrl);
+    // console.log("URL Criadores");
+    // console.log(completeUrl);
     return axios.get(`${completeUrl}`);
   }
 

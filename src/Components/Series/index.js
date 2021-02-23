@@ -7,7 +7,7 @@ class Series extends Component {
     const id = this.props.data.id;
     const title = this.props.data.title;
     const img = `${this.props.data.thumbnail.path}.${this.props.data.thumbnail.extension}`;
-    console.log(img);
+    // console.log(img);
     //  {!desc ? "Não existe descrição" : desc}
     return (
       <View style={{backgroundColor: '#FFF', padding: 5}}>

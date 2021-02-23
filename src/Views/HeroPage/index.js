@@ -15,7 +15,12 @@ import Histories from "../../Components/Histories";
 import { css } from "../HeroPage/css";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
+
+
 export default function HeroPage({ route, navigation }) {
+  console.log(
+    "------------------------------------------- Hero Page ------------------------------------------ "
+  );
   const idC = route.params.id;
   const nome = route.params.nome;
   const imagem = route.params.imagem;
@@ -36,24 +41,24 @@ export default function HeroPage({ route, navigation }) {
   // Todo: Pega os Hqs de origem
   function getComicsHero() {
     const completeUrl = `https://gateway.marvel.com/v1/public/characters/${idC}/comics?ts=1612100588&apikey=441f8e1d35a71620f2cc514653ca8d66&hash=67b23bf97ed17c43aaec511386e91116`;
-    console.log("URL COMIC");
-    console.log(completeUrl);
+    // console.log("URL COMIC");
+    // console.log(completeUrl);
     return axios.get(`${completeUrl}`);
   }
 
   // Todo: Pega as séries que participou
   function getSeriesHero() {
     const completeUrl = `https://gateway.marvel.com/v1/public/characters/${idC}/series?ts=1612100588&apikey=441f8e1d35a71620f2cc514653ca8d66&hash=67b23bf97ed17c43aaec511386e91116`;
-    console.log("URL Serie");
-    console.log(completeUrl);
+    // console.log("URL Serie");
+    // console.log(completeUrl);
     return axios.get(`${completeUrl}`);
   }
 
   // Todo: Pega as stories que participou
   function getStoriessHero() {
     const completeUrl = `https://gateway.marvel.com/v1/public/characters/${idC}/stories?series=3374&ts=1612100588&apikey=441f8e1d35a71620f2cc514653ca8d66&hash=67b23bf97ed17c43aaec511386e91116`;
-    console.log("URL STORIES");
-    console.log(completeUrl);
+  // console.log("URL STORIES");
+  // console.log(completeUrl);
     return axios.get(`${completeUrl}`);
   }
 
@@ -69,9 +74,9 @@ export default function HeroPage({ route, navigation }) {
     series = getSeriesHero();
     stories = getStoriessHero();
 
-    console.log(
-      "$$$$$$$$$$$$$$$$$$$$$$ - serie comic hero - $$$$$$$$$$$$$$$$$$$$$$"
-    );
+    // console.log(
+    //   "$$$$$$$$$$$$$$$$$$$$$$ - serie comic hero - $$$$$$$$$$$$$$$$$$$$$$"
+    // );
     //console.log(serie);
 
     comics
@@ -125,9 +130,9 @@ export default function HeroPage({ route, navigation }) {
         setStories(dados);
         setCountH(count);
 
-        console.log(
-          "------------------------------------------- Stories ------------------------------------------ "
-        );
+        // console.log(
+        //   "------------------------------------------- Stories ------------------------------------------ "
+        // );
         //console.log(count);
       })
       .catch(function (error) {
@@ -137,9 +142,9 @@ export default function HeroPage({ route, navigation }) {
         }
       });
 
-    console.log(
-      "---------------------------------------------- ID HISTORI ----------------------------------------------"
-    );
+    // console.log(
+    //   "---------------------------------------------- ID HISTORI ----------------------------------------------"
+    // );
     // console.log(storie);
   }, []);
 
