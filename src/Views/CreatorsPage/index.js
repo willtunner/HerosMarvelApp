@@ -14,6 +14,7 @@ export default function CreatorsPage({ route, navigation }) {
 
     const data = route.params.data;
     const { id, firstName, middleName, lastName, fullName, modified, series, comics, events, stories, thumbnail} = route.params.data;
+    const imagem = thumbnail.path+'.'+thumbnail.extension;
 
    
     
@@ -24,7 +25,7 @@ export default function CreatorsPage({ route, navigation }) {
     // let creatorsData;
 
     console.log(' #################### Creators Page ####################');
-    console.log(thumbnail.path+'.'+thumbnail.extension);
+    //console.log();
 
     // function getHeros() {
     //   return axios.get(completeURL);
@@ -56,8 +57,8 @@ export default function CreatorsPage({ route, navigation }) {
     // },[]);
 
     return(
-        <View>
-          
+        <View>  
+            <Image source={{ uri: `${imagem}` }} style={{height: 100, width: 100}}/>
         </View>
     );
 }
