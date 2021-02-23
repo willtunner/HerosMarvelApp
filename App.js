@@ -7,6 +7,8 @@ import HeroPage from './src/Views/HeroPage';
 import ComicPage from './src/Views/ComicPage';
 import SeriePage from './src/Views/SeriesPage';
 import CreatorsPage from './src/Views/CreatorsPage';
+import EventPage from './src/Views/EventPage';
+
 
 
 export default function App() {
@@ -21,6 +23,7 @@ export default function App() {
         <Stack.Screen name="ComicPage" component={ComicPage} />
         <Stack.Screen name="SeriePage" component={SeriePage} />
         <Stack.Screen name="CreatorsPage" component={CreatorsPage} />
+        <Stack.Screen name="EventPage" component={EventPage} />
       </Stack.Navigator>
     </NavigationContainer>
   );
