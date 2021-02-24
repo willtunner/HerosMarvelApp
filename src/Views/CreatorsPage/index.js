@@ -39,8 +39,8 @@ export default function CreatorsPage({ route, navigation }) {
   } = route.params.data;
   const imagem = thumbnail.path + "." + thumbnail.extension;
 
-  //console.log(" #################### Creators Page ####################");
-  //console.log(comics.collectionURI);
+  // console.log(" #################### Creators Page ####################");
+  console.log(events.available);
   let comic;
   let serie;
   let event;
@@ -62,8 +62,8 @@ export default function CreatorsPage({ route, navigation }) {
   // Todo: Pega as events que participou
   function getEventsCreator() {
     const completeUrl = `http://gateway.marvel.com/v1/public/creators/${id}/events${keyCode}`;
-    console.log("##### - HQ EVENTS Criadores - #####");
-    console.log(completeUrl);
+    // console.log("##### - HQ EVENTS Criadores - #####");
+    // console.log(completeUrl);
     return axios.get(`${completeUrl}`);
   }
 
@@ -75,11 +75,21 @@ export default function CreatorsPage({ route, navigation }) {
     comic.then((results) => {
       const comicsCreatorHQ = results.data.data.results;
       setComicCreator(comicsCreatorHQ);
+    }).catch(function (error) {
+      if (error) {
+        // ? Se tiver algum erro printa no catch
+        console.log(error);
+      }
     });
 
     serie.then((results) => {
       const SerieCreatorHQ = results.data.data.results;
       setSerieCreator(SerieCreatorHQ);
+    }).catch(function (error) {
+      if (error) {
+        // ? Se tiver algum erro printa no catch
+        console.log(error);
+      }
     });
 
     event.then((results) => {

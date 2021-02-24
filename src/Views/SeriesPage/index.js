@@ -139,8 +139,8 @@ export default function ComicPage({ route, navigation }) {
         setCreators(dados);
         setCountCreators(count);
 
-        // console.log("Retorno criadores");
-        // console.log(count);
+        console.log("Retorno criadores");
+        console.log(dados);
       })
       .catch(function (error) {
         if (error) {

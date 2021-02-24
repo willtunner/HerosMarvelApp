@@ -7,8 +7,6 @@ class Events extends Component {
   render() {
     const title = this.props.data.title;
     const img = `${this.props.data.thumbnail.path}.${this.props.data.thumbnail.extension}`;
-
-    const [comicCreator, setComicCreator] = useState([]);
     
     return (
       <View style={{ backgroundColor: "#FFF", padding: 5 }}>

@@ -9,11 +9,14 @@ import {
   StyleSheet,
   FlatList,
 } from "react-native";
-
+import Comics from "../../Components/Comics";
+import Events from "../../Components/Events";
 import { css } from "./css";
 
 export default function EventPage({ route, navigation }) {
-  // const data = route.params.data;
+  const data = route.params.data;
+  const [comicEvent, setComicEvent] = useState([]);
+  const [serieEvent, setSerieEvent] = useState([]);
 
   let comic;
   let serie;
@@ -35,6 +38,8 @@ export default function EventPage({ route, navigation }) {
   } = route.params.data;
 
   const imagem = `${thumbnail.path}.${thumbnail.extension}`;
+  
+
   const keyCode =
     "?ts=1612100588&limit=100&apikey=441f8e1d35a71620f2cc514653ca8d66&hash=67b23bf97ed17c43aaec511386e91116";
 
@@ -42,7 +47,7 @@ export default function EventPage({ route, navigation }) {
    * AREA DE DEBUG EVENT
    */
   console.log("##### TELA DE EVENTOS #####");
-  //console.log(title);
+  console.log(data);
 
   /**
    * FIM DA AREA DE DEBUG EVENT
@@ -51,16 +56,39 @@ export default function EventPage({ route, navigation }) {
    // Todo: Pega os Hqs que criou
   function getComicsCreator() {
     const completeUrl = `http://gateway.marvel.com/v1/public/events/${id}/comics${keyCode}`;
-    console.log("##### - HQ EVENTS - #####");
-    console.log(completeUrl);
+    // console.log("##### - HQ EVENTS - #####");
+    // console.log(completeUrl);
+    return axios.get(`${completeUrl}`);
+  }
+
+  function getSeriesCreator() {
+    const completeUrl = `http://gateway.marvel.com/v1/public/events/${id}/series${keyCode}`;
+    //console.log("##### - HQ EVENTS - #####");
+    //console.log(completeUrl);
     return axios.get(`${completeUrl}`);
   }
 
   useEffect(() => {
     comic = getComicsCreator();
+    serie = getSeriesCreator();
 
     comic.then((results) => {
-        console.log(results.data.data.results)
+      const comicsEventHQ = results.data.data.results;
+      setComicEvent(comicsEventHQ);
+    }).catch(function (error) {
+      if (error) {
+        // ? Se tiver algum erro printa no catch
+        console.log(error);
+      }
+    });
+
+
+    serie.then((results) => {
+      const dataSeries = results.data.data.results;
+      setSerieEvent(dataSeries);
+
+      console.log('#### series event ####');
+      console.log(dataSeries);
     })
   },[]);
 
@@ -113,6 +141,27 @@ export default function EventPage({ route, navigation }) {
         {/* //% QTD COMICS   */}
         <View style={css.ViewComic}>
           <Text style={css.txtComic}>{`COMICS (${comics.available})`}</Text>
+          <FlatList
+                horizontal
+                data={comicEvent}
+                keyExtractor={(item) => item.id.toString()}
+                renderItem={({ item }) => (
+                  <Comics navigation={navigation} data={item} />
+                )}
+              />
+        </View>
+
+        {/* //% SERIES   */}
+        <View style={css.ViewComic}>
+          <Text style={css.txtComic}>{`SERIES (10)`}</Text>
+          <FlatList
+              horizontal
+              data={serieEvent}
+              keyExtractor={(item) => item.id.toString()}
+              renderItem={({ item }) => (
+                <Events navigation={navigation} data={item} />
+              )}
+            />
         </View>
 
       </ScrollView>
