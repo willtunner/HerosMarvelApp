@@ -14,6 +14,7 @@ import styled from "styled-components/native/";
 import ArrowL from "../../../assets/ArrowL.png";
 import ArrowR from "../../../assets/ArrowR.png";
 import findButtom from "../../../assets/find_hero.png";
+import {Container, Titulo, Pesquisar, Sublinhado, Negrito, TextoSecundario, Label, ViewFindHero, AreaTexto, ButtonFindHero, TituloHero, TextTiluto, BodyHero, LineRed, Avatar} from './css';
 
 
 
@@ -59,35 +60,8 @@ export default function Home({ navigation }) {
     const masterKey = `ts=1612100588&apikey=441f8e1d35a71620f2cc514653ca8d66&hash=67b23bf97ed17c43aaec511386e91116`;
     const completeUrl = `${BASE}${URL}?${masterKey}&${offset1}&${orderBy}&${limit}`;
 
-    // console.log(
-    //   "============================= URL COMPLETA ============================="
-    // );
-    // console.log(completeUrl);
-
     return axios.get(completeUrl);
   }
-
-  // ! Funções de controle da navegação
-  const controls = {
-    next() {
-      setPage(page + 1);
-      const lastPage = page > totalPage;
-
-      if (lastPage) {
-        setPage(page - 1);
-      }
-    },
-    prev() {
-      setPage(page - 1);
-    },
-    goTo() {},
-  };
-
-  /**
-   * page = offset
-   * peerPage = limit
-   * totalPage = total
-   */
 
   useEffect(() => {
     // ? Pega os dados retornados da função e armazena na variavel
@@ -149,7 +123,8 @@ export default function Home({ navigation }) {
           )}
         />
       </BodyHero>
-      <View style={styles.redBorder}></View>
+
+      <LineRed/>
 
       {/* //Todo: <Pagination /> */}
       <View style={styles.ViewPage}>
@@ -157,7 +132,7 @@ export default function Home({ navigation }) {
           <Image source={ArrowL} style={styles.arrows} />
         </TouchableOpacity>
 
-        <View style={styles.naviPage}>
+        {/* <View style={styles.naviPage}>
           <TouchableOpacity style={styles.rounded}>
             <Text style={styles.pagination2}>1</Text>
           </TouchableOpacity>
@@ -167,7 +142,7 @@ export default function Home({ navigation }) {
           <TouchableOpacity style={styles.rounded2}>
             <Text style={styles.pagination}>3</Text>
           </TouchableOpacity>
-        </View>
+        </View> */}
 
         <TouchableOpacity onPress={() => controls.next()}>
           <Image source={ArrowR} style={styles.arrows} />
@@ -177,94 +152,9 @@ export default function Home({ navigation }) {
   );
 }
 
-const Container = styled.View`
-  flex: 1;
-  margin-top: 12px;
-  background-color: #fff;
-`;
 
-const Titulo = styled.View`
-  flex-direction: row;
-  margin-top: 12px;
-  justify-content: center;
-`;
 
-const Pesquisar = styled.View`
-  flex-direction: column;
-  margin-top: 12px;
-  justify-content: center;
-  margin-left: 53px;
-  height: 60px;
-`;
 
-const Sublinhado = styled.Text`
-  color: #ec1d24;
-  font-size: 16px;
-  font-weight: bold;
-  text-decoration: underline red;
-`;
-const Negrito = styled.Text`
-  color: #ec1d24;
-  font-size: 16px;
-  font-weight: bold;
-`;
-
-const TextoSecundario = styled.Text`
-  color: #ec1d24;
-  font-size: 16px;
-  font-weight: normal;
-`;
-
-const Label = styled.Text`
-  color: #ec1d24;
-  font-size: 16px;
-  font-weight: normal;
-`;
-
-const ViewFindHero = styled.View`
-  flex: 1;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin: 10px;
-`;
-
-const AreaTexto = styled.TextInput`
-  color: #000;
-  font-size: 16px;
-  font-weight: normal;
-  border: solid 1px;
-  width: 90%;
-  border-radius: 5px;
-  height: 40px;
-  flex: 1;
-  padding: 5px;
-`;
-
-const ButtonFindHero = styled.TouchableOpacity` `;
-
-const Avatar = styled.Image`
-height: 30px;
-width: 30px;
-margin: 5px;
-padding: 10px;
-right: 38px;
-`;
-
-const TituloHero = styled.TextInput`
-  background-color: #ec1d24;
-  height: 40px;
-  margin-top: 12px;
-  width: 100%;
-  padding-left: 100px;
-`;
-
-const TextTiluto = styled.Text`
-  color: #fff;
-  font-size: 20px;
-`;
-
-const BodyHero = styled.View` `;
 
 const styles = StyleSheet.create({
   arrows: {
@@ -307,12 +197,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     justifyContent: "center",
-  },
-  redBorder: {
-    width: "100%",
-    height: 15,
-    backgroundColor: "#EC1D24",
-    marginBottom: 20,
   },
   ViewFind: {
     flex: 1,

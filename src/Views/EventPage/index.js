@@ -15,8 +15,11 @@ import { css } from "./css";
 
 export default function EventPage({ route, navigation }) {
   const data = route.params.data;
+  const idE = route.params.data.id;
   const [comicEvent, setComicEvent] = useState([]);
   const [serieEvent, setSerieEvent] = useState([]);
+
+  
 
   let comic;
   let serie;
@@ -47,7 +50,7 @@ export default function EventPage({ route, navigation }) {
    * AREA DE DEBUG EVENT
    */
   console.log("##### TELA DE EVENTOS #####");
-  console.log(data);
+  //console.log(data);
 
   /**
    * FIM DA AREA DE DEBUG EVENT
@@ -82,6 +85,29 @@ export default function EventPage({ route, navigation }) {
       }
     });
 
+    serie.then((results) => {
+      const dataSeries = results.data.data.results;
+      setSerieEvent(dataSeries);
+
+      console.log('#### series event ####');
+      console.log(dataSeries);
+      
+    })
+  },[]);
+
+  useEffect(() => {
+    comic = getComicsCreator();
+    serie = getSeriesCreator();
+
+    comic.then((results) => {
+      const comicsEventHQ = results.data.data.results;
+      setComicEvent(comicsEventHQ);
+    }).catch(function (error) {
+      if (error) {
+        // ? Se tiver algum erro printa no catch
+        console.log(error);
+      }
+    });
 
     serie.then((results) => {
       const dataSeries = results.data.data.results;
@@ -89,8 +115,9 @@ export default function EventPage({ route, navigation }) {
 
       console.log('#### series event ####');
       console.log(dataSeries);
+      alert(idE);
     })
-  },[]);
+  },[idE]);
 
   return (
     <View>

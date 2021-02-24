@@ -162,19 +162,19 @@ export default function HeroPage({ route, navigation }) {
         setComic(dados);
         setCountC(count);
 
-        // ? Pegando dados dos Hqs
-        const desc = dados.map((hqs) => `${hqs.description}`);
-        const id = dados.map((hqs) => `${hqs.id}`);
-        const title = dados.map((hqs) => `${hqs.title}`);
-        const thumbnail = dados.map(
-          (hqs) => `${hqs.thumbnail.path}.${hqs.thumbnail.extension}`
-        );
-        const images = dados.map(
-          (hqs) =>
-            `${hqs.images.map((path) => path.path)}.${hqs.images.map(
-              (ext) => ext.extension
-            )}`
-        );
+        // // ? Pegando dados dos Hqs
+        // const desc = dados.map((hqs) => `${hqs.description}`);
+        // const id = dados.map((hqs) => `${hqs.id}`);
+        // const title = dados.map((hqs) => `${hqs.title}`);
+        // const thumbnail = dados.map(
+        //   (hqs) => `${hqs.thumbnail.path}.${hqs.thumbnail.extension}`
+        // );
+        // const images = dados.map(
+        //   (hqs) =>
+        //     `${hqs.images.map((path) => path.path)}.${hqs.images.map(
+        //       (ext) => ext.extension
+        //     )}`
+        // );
       })
       .catch(function (error) {
         if (error) {
