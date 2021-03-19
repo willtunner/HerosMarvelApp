@@ -1,4 +1,5 @@
 import React from "react";
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -8,8 +9,6 @@ import ComicPage from './src/Views/ComicPage';
 import SeriePage from './src/Views/SeriesPage';
 import CreatorsPage from './src/Views/CreatorsPage';
 import EventPage from './src/Views/EventPage';
-
-
 
 export default function App() {
 
